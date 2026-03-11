@@ -3,7 +3,7 @@
  * Handles routing, global state, and component orchestration
  */
 
-const API_BASE = 'http://localhost:3000/api';
+const API_BASE = 'http://localhost:4000/api';
 
 // Global application state
 const AppState = {
