@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Codebase Intelligence Platform</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Syne:wght@400;600;800&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div id="app">
+    <!-- Header -->
+    <header class="header">
+      <div class="header-inner">
+        <div class="logo">
+          <span class="logo-icon">⬡</span>
+          <span class="logo-text">CodeIntel</span>
+        </div>
+        <nav class="nav">
+          <button class="nav-btn active" data-view="dashboard">Dashboard</button>
+          <button class="nav-btn" data-view="complexity">Complexity</button>
+          <button class="nav-btn" data-view="dependencies">Dependencies</button>
+          <button class="nav-btn" data-view="commits">Commits</button>
+          <button class="nav-btn" data-view="architecture">Architecture</button>
+        </nav>
+        <div class="header-actions">
+          <span id="status-indicator" class="status-dot idle"></span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+      <!-- Repo Input Section -->
+      <div id="repo-input-section" class="section-card hero-card">
+        <div id="repo-input-mount"></div>
+      </div>
+
+      <!-- Views -->
+      <div id="dashboard-view" class="view active">
+        <div id="insights-panel-mount"></div>
+      </div>
+
+      <div id="complexity-view" class="view">
+        <div id="complexity-map-mount"></div>
+      </div>
+
+      <div id="dependencies-view" class="view">
+        <div id="dependency-graph-mount"></div>
+      </div>
+
+      <div id="commits-view" class="view">
+        <div id="commit-timeline-mount"></div>
+      </div>
+
+      <div id="architecture-view" class="view">
+        <div id="architecture-mount">
+          <div class="empty-state">
+            <span class="empty-icon">🏗</span>
+            <p>Architecture visualization will render here after analysis.</p>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Component Scripts -->
+  <script src="components/repoInput.js"></script>
+  <script src="components/dependencyGraph.js"></script>
+  <script src="components/complexityMap.js"></script>
+  <script src="components/commitTimeline.js"></script>
+  <script src="components/insightsPanel.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
