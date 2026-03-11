@@ -1,12 +1,3 @@
-/**
- * utils/metricsCalculator.js — Aggregate metric computation from file-level data
- */
-
-/**
- * Calculate aggregate metrics from an array of file complexity records
- * @param {Array<{name, lines, complexity}>} files
- * @returns {Object} aggregate metrics
- */
 function calculateMetrics(files) {
   if (!files || files.length === 0) {
     return {
@@ -30,7 +21,6 @@ function calculateMetrics(files) {
   const maxComplexity = Math.max(...complexities);
   const highComplexityFiles = files.filter(f => (f.complexity || 0) > 20).length;
 
-  // Health score: starts at 100, penalized by complexity and high-complexity file ratio
   let healthScore = 100;
   if (avgComplexity > 5)  healthScore -= Math.min((avgComplexity - 5) * 3, 30);
   if (highComplexityFiles > 0) healthScore -= Math.min((highComplexityFiles / totalFiles) * 100 * 0.4, 40);
@@ -43,15 +33,12 @@ function calculateMetrics(files) {
     maxComplexity,
     highComplexityFiles,
     healthScore,
-    churnRate: 0, // populated separately from git log
+    churnRate: 0, 
     totalDependencies: 0,
     vulnerabilities: 0,
   };
 }
 
-/**
- * Merge complexity metrics with git churn data
- */
 function mergeWithChurn(metrics, churnData) {
   return {
     ...metrics,
@@ -60,9 +47,6 @@ function mergeWithChurn(metrics, churnData) {
   };
 }
 
-/**
- * Normalize a complexity value to a 0–100 score
- */
 function normalizeComplexity(value, max = 50) {
   return Math.round(Math.max(0, Math.min(100, 100 - (value / max) * 100)));
 }

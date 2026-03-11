@@ -1,7 +1,3 @@
-/**
- * services/architectureDetector.js — Detect architectural patterns and module structure
- */
-
 const path = require('path');
 const fs = require('fs-extra');
 const { glob } = require('glob');
@@ -14,9 +10,6 @@ const PATTERNS = {
   monorepo: ['packages', 'apps', 'libs'],
 };
 
-/**
- * Detect the high-level architecture of the repository
- */
 async function detect(repoId) {
   const repoPath = getRepoPath(repoId);
 
@@ -37,7 +30,6 @@ async function detect(repoId) {
     }
   }
 
-  // Build module relationship map
   const modules = await buildModuleMap(repoPath);
 
   return {

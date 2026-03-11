@@ -1,7 +1,3 @@
-/**
- * server.js — Express application entry point
- */
-
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
@@ -16,15 +12,14 @@ const commitsRoutes = require('./routes/commits');
 const dependenciesRoutes = require('./routes/dependencies');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4000;
 
-// ─── Middleware ────────────────────────────────────────────────────────────────
+
 app.use(helmet({ contentSecurityPolicy: false }));
 app.use(cors({ origin: process.env.ALLOWED_ORIGINS || '*' }));
 app.use(morgan('dev'));
 app.use(express.json({ limit: '10mb' }));
 
-// Rate limiting
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 100,
@@ -34,31 +29,32 @@ const limiter = rateLimit({
 });
 app.use('/api', limiter);
 
-// ─── Routes ───────────────────────────────────────────────────────────────────
 app.use('/api/repo', repoRoutes);
 app.use('/api/analysis', analysisRoutes);
 app.use('/api/commits', commitsRoutes);
 app.use('/api/dependencies', dependenciesRoutes);
 
-// Serve frontend
 app.use(express.static(path.join(__dirname, '../frontend')));
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend/index.html'));
 });
 
-// ─── Error handler ────────────────────────────────────────────────────────────
 app.use((err, req, res, next) => {
   console.error(`[Error] ${err.message}`);
+  console.error(err.stack);
   res.status(err.status || 500).json({
     error: err.message || 'Internal Server Error',
-    ...(process.env.NODE_ENV === 'development' && { stack: err.stack }),
   });
 });
 
-// ─── Start ────────────────────────────────────────────────────────────────────
-app.listen(PORT, () => {
-  console.log(`\n  🧠 Codebase Intelligence Platform`);
-  console.log(`  ➜  http://localhost:${PORT}\n`);
+const server = app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
 
+server.on('error', (err) => {
+  if (err.code === 'EADDRINUSE') {
+    console.error(`Port ${PORT} in use. Kill it with: taskkill /F /PID $(netstat -ano | findstr :${PORT})`);
+    process.exit(1);
+  }
+});
 module.exports = app;

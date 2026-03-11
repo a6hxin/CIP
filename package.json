@@ -1,13 +1,12 @@
 {
   "name": "codebase-intelligence-platform",
   "version": "1.0.0",
-  "description": "A powerful platform for codebase analysis including complexity analysis, dependency scanning, commit timeline, and architecture visualization",
+  "description": "A powerful platform for codebase analysis",
   "main": "backend/server.js",
   "scripts": {
     "start": "node backend/server.js",
-    "dev": "nodemon backend/server.js",
+    "dev": "npx kill-port 4000 && nodemon --ignore data/ --ignore frontend/ backend/server.js",
     "test": "jest --coverage",
-    "setup": "bash scripts/setup.sh",
     "lint": "eslint . --ext .js"
   },
   "dependencies": {
@@ -42,18 +41,7 @@
   "engines": {
     "node": ">=18.0.0"
   },
-  "keywords": [
-    "codebase",
-    "analysis",
-    "complexity",
-    "dependency",
-    "git",
-    "architecture"
-  ],
+  "keywords": ["codebase", "analysis", "complexity"],
   "author": "",
   "license": "MIT"
-}
-   "scripts": {
-  "dev": "nodemon --ignore 'data/*' --ignore 'frontend/*' backend/server.js",
-  "start": "node backend/server.js"
 }

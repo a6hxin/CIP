@@ -1,7 +1,3 @@
-/**
- * dependencyGraph.js — Canvas-based force-directed dependency graph
- */
-
 function mountDependencyGraph(container) {
   if (!container) return;
   container.innerHTML = `
@@ -42,13 +38,11 @@ function renderDependencyGraph(data) {
 
   empty.style.display = 'none';
 
-  // Update stats
   document.getElementById('dep-total').textContent = data.total || deps.length;
   document.getElementById('dep-direct').textContent = data.direct || deps.filter(d => !d.dev).length;
   document.getElementById('dep-dev').textContent = data.devCount || deps.filter(d => d.dev).length;
   document.getElementById('dep-vulns').textContent = data.vulnerabilities || 0;
 
-  // Build graph nodes
   const rect = canvas.parentElement.getBoundingClientRect();
   const W = rect.width || 800;
   const H = 420;
@@ -78,12 +72,10 @@ function renderDependencyGraph(data) {
   depGraph = { nodes, edges, scale: 1, offsetX: 0, offsetY: 0 };
   drawDepGraph(canvas);
 
-  // Controls
   document.getElementById('dep-zoom-in').onclick = () => { depGraph.scale = Math.min(depGraph.scale + 0.15, 2.5); drawDepGraph(canvas); };
   document.getElementById('dep-zoom-out').onclick = () => { depGraph.scale = Math.max(depGraph.scale - 0.15, 0.4); drawDepGraph(canvas); };
   document.getElementById('dep-reset').onclick = () => { depGraph.scale = 1; depGraph.offsetX = 0; depGraph.offsetY = 0; drawDepGraph(canvas); };
 
-  // Tooltip on hover
   canvas.addEventListener('mousemove', (e) => {
     const r = canvas.getBoundingClientRect();
     const mx = (e.clientX - r.left - depGraph.offsetX) / depGraph.scale;
@@ -101,7 +93,6 @@ function drawDepGraph(canvas) {
   ctx.translate(offsetX, offsetY);
   ctx.scale(scale, scale);
 
-  // Edges
   ctx.lineWidth = 1;
   edges.forEach(edge => {
     const from = nodes.find(n => n.id === edge.from);
@@ -114,7 +105,6 @@ function drawDepGraph(canvas) {
     ctx.stroke();
   });
 
-  // Nodes
   nodes.forEach(node => {
     ctx.beginPath();
     const r = node.isRoot ? 16 : 8;
@@ -131,7 +121,6 @@ function drawDepGraph(canvas) {
     }
     ctx.fill();
 
-    // Label
     if (scale > 0.7) {
       ctx.fillStyle = '#e6edf3';
       ctx.font = `${Math.round(10 / scale)}px JetBrains Mono, monospace`;

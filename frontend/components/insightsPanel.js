@@ -1,7 +1,3 @@
-/**
- * insightsPanel.js — Dashboard overview with key metrics and AI suggestions
- */
-
 function mountInsightsPanel(container) {
   if (!container) return;
   container.innerHTML = `
@@ -73,7 +69,6 @@ function renderInsightsPanel(data) {
     </div>
   `).join('');
 
-  // AI Insights
   const insights = data.aiInsights || [];
   if (insights.length > 0) {
     aiSection.style.display = 'block';
@@ -92,7 +87,6 @@ function renderSkeletonMetrics() {
   `).join('');
 }
 
-// ─── Helpers ──────────────────────────────────────────────────────────────────
 function getBadge(val, thresholds, inverse = false) {
   if (val == null) return { text: '—', cls: 'badge-info' };
   const [low, mid, high] = thresholds;

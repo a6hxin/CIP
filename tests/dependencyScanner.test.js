@@ -1,14 +1,8 @@
-/**
- * tests/dependencyScanner.test.js
- * Unit tests for dependency scanning and vulnerability detection
- */
-
 const path = require('path');
 const fs = require('fs-extra');
 const { calculateCyclomatic, classifyComplexity } = require('../analyzers/complexity-analyzer/cyclomatic');
 const { detectHotspots, findRiskyIntersection } = require('../analyzers/complexity-analyzer/hotspot_detector');
 
-// ─── Cyclomatic complexity tests ──────────────────────────────────────────────
 describe('cyclomatic complexity', () => {
   it('returns 1 for empty/trivial code', () => {
     expect(calculateCyclomatic('const x = 1;')).toBe(1);
@@ -57,7 +51,6 @@ describe('cyclomatic complexity', () => {
   });
 });
 
-// ─── Hotspot detection tests ───────────────────────────────────────────────────
 describe('hotspot_detector', () => {
   const mockFiles = [
     { name: 'src/core/engine.js', lines: 800, complexity: 45 },

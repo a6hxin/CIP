@@ -1,6 +1,3 @@
-#!/usr/bin/env bash
-# scripts/setup.sh — One-shot development environment setup
-
 set -euo pipefail
 
 GREEN='\033[0;32m'
@@ -12,7 +9,6 @@ log()  { echo -e "${GREEN}[setup]${NC} $1"; }
 warn() { echo -e "${YELLOW}[warn]${NC}  $1"; }
 err()  { echo -e "${RED}[error]${NC} $1"; exit 1; }
 
-# ─── Check prerequisites ───────────────────────────────────────────────────────
 log "Checking prerequisites..."
 
 command -v node >/dev/null 2>&1 || err "Node.js is required. Install from https://nodejs.org"
@@ -27,11 +23,9 @@ fi
 log "Node.js $(node --version) ✓"
 log "Python $(python3 --version) ✓"
 
-# ─── Install Node dependencies ─────────────────────────────────────────────────
 log "Installing Node.js dependencies..."
 npm install
 
-# ─── Install Python dependencies ──────────────────────────────────────────────
 log "Installing Python dependencies..."
 if command -v pip3 >/dev/null 2>&1; then
   pip3 install -r requirements.txt --quiet
@@ -39,17 +33,13 @@ else
   warn "pip3 not found — skipping Python dependency installation"
 fi
 
-# ─── Create data directories ───────────────────────────────────────────────────
 log "Creating data directories..."
 mkdir -p data/repos data/dependency_reports data/complexity_reports diagrams
-
-# Keep directories in git
 touch data/repos/.gitkeep
 touch data/dependency_reports/.gitkeep
 touch data/complexity_reports/.gitkeep
 touch diagrams/.gitkeep
 
-# ─── Create .env if missing ────────────────────────────────────────────────────
 if [ ! -f ".env" ]; then
   log "Creating .env from template..."
   cat > .env <<EOF
@@ -62,7 +52,6 @@ EOF
   warn "Edit .env and add your API keys."
 fi
 
-# ─── Done ──────────────────────────────────────────────────────────────────────
 echo ""
 log "Setup complete! 🧠"
 echo ""

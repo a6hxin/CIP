@@ -1,7 +1,3 @@
-/**
- * services/complexityAnalyzer.js — Cyclomatic complexity + health scoring
- */
-
 const path = require('path');
 const fs = require('fs-extra');
 const { glob } = require('glob');
@@ -10,14 +6,9 @@ const { detectHotspots } = require('../../analyzers/complexity-analyzer/hotspot_
 const { calculateMetrics } = require('../utils/metricsCalculator');
 const { getRepoPath } = require('./gitService');
 
-/**
- * Run full complexity analysis for a cloned repository
- * Returns per-file metrics, aggregate scores, and AI insight stubs
- */
 async function analyze(repoId) {
   const repoPath = getRepoPath(repoId);
 
-  // Find JS/TS/Python source files (exclude node_modules, tests, dist)
   const patterns = ['**/*.js', '**/*.ts', '**/*.py', '**/*.jsx', '**/*.tsx'];
   const ignore = ['**/node_modules/**', '**/dist/**', '**/build/**', '**/*.test.*', '**/*.spec.*'];
 
@@ -41,7 +32,6 @@ async function analyze(repoId) {
   const hotspots = detectHotspots(fileMetrics);
   const aggregates = calculateMetrics(fileMetrics);
 
-  // Persist report
   const reportPath = path.join(__dirname, '../../data/complexity_reports', `${repoId}.json`);
   await fs.ensureDir(path.dirname(reportPath));
   await fs.writeJson(reportPath, { repoId, analyzedAt: new Date().toISOString(), files: fileMetrics }, { spaces: 2 });

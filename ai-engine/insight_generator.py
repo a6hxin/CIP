@@ -1,10 +1,3 @@
-#!/usr/bin/env python3
-"""
-ai-engine/insight_generator.py
-Generates AI-powered code quality insights using LLM APIs.
-Reads complexity/dependency reports and outputs actionable recommendations.
-"""
-
 import json
 import os
 import sys
@@ -14,7 +7,6 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# Optional LLM client — falls back to rule-based insights if not configured
 try:
     import openai
     client = openai.OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
@@ -27,7 +19,7 @@ PROMPT_PATH = Path(__file__).parent / "prompts" / "code_insight_prompt.txt"
 
 
 def load_report(report_type: str, repo_id: str) -> dict:
-    """Load a JSON report for a given repo."""
+    
     report_path = DATA_DIR / f"{report_type}_reports" / f"{repo_id}.json"
     if not report_path.exists():
         return {}

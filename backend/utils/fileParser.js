@@ -1,7 +1,3 @@
-/**
- * utils/fileParser.js — File reading, filtering, and language detection utilities
- */
-
 const path = require('path');
 const fs = require('fs-extra');
 
@@ -25,17 +21,11 @@ const LANGUAGE_MAP = {
 
 const EXCLUDED_DIRS = new Set(['node_modules', '.git', 'dist', 'build', '.cache', 'coverage', 'vendor']);
 
-/**
- * Detect the programming language of a file by its extension
- */
 function detectLanguage(filePath) {
   const ext = path.extname(filePath).toLowerCase();
   return LANGUAGE_MAP[ext] || 'unknown';
 }
 
-/**
- * Read a source file safely, returning null on failure
- */
 async function readSourceFile(filePath) {
   try {
     const content = await fs.readFile(filePath, 'utf8');
@@ -45,9 +35,6 @@ async function readSourceFile(filePath) {
   }
 }
 
-/**
- * Walk a directory tree, yielding source file paths
- */
 async function* walkDirectory(dir, options = {}) {
   const { maxDepth = 10, depth = 0 } = options;
   if (depth > maxDepth) return;
@@ -70,9 +57,6 @@ async function* walkDirectory(dir, options = {}) {
   }
 }
 
-/**
- * Count lines of code, blank lines, and comment lines in a source string
- */
 function countLines(content) {
   const lines = content.split('\n');
   const total = lines.length;

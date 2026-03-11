@@ -6,11 +6,11 @@
   <title>Codebase Intelligence Platform</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Syne:wght@400;600;800&display=swap" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
   <div id="app">
-    <!-- Header -->
     <header class="header">
       <div class="header-inner">
         <div class="logo">
@@ -30,14 +30,11 @@
       </div>
     </header>
 
-    <!-- Main Content -->
     <main class="main">
-      <!-- Repo Input Section -->
       <div id="repo-input-section" class="section-card hero-card">
         <div id="repo-input-mount"></div>
       </div>
 
-      <!-- Views -->
       <div id="dashboard-view" class="view active">
         <div id="insights-panel-mount"></div>
       </div>
@@ -65,7 +62,6 @@
     </main>
   </div>
 
-  <!-- Component Scripts -->
   <script src="components/repoInput.js"></script>
   <script src="components/dependencyGraph.js"></script>
   <script src="components/complexityMap.js"></script>

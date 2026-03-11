@@ -1,8 +1,5 @@
-/* ===========================
-   CSS Variables & Reset
-=========================== */
 :root {
-  --bg: #0a0c10;
+  --bg: #060d14;
   --bg-card: #0f1318;
   --bg-elevated: #161b22;
   --border: #21262d;
@@ -15,8 +12,8 @@
   --accent-orange: #d29922;
   --accent-red: #f85149;
   --accent-purple: #bc8cff;
-  --font-mono: 'JetBrains Mono', monospace;
-  --font-display: 'Syne', sans-serif;
+  --font-mono: 'Fira Code', monospace;      /* was JetBrains Mono */
+  --font-display: 'Outfit', sans-serif;     /* was Syne */
   --radius: 8px;
   --shadow: 0 8px 32px rgba(0,0,0,0.4);
 }
@@ -26,20 +23,33 @@
 html { scroll-behavior: smooth; }
 
 body {
-  background: var(--bg);
+  background-color: #060d14;
   color: var(--text);
   font-family: var(--font-mono);
   font-size: 14px;
   line-height: 1.6;
   min-height: 100vh;
   background-image:
-    radial-gradient(ellipse at 20% 0%, rgba(88,166,255,0.05) 0%, transparent 60%),
-    radial-gradient(ellipse at 80% 100%, rgba(188,140,255,0.04) 0%, transparent 60%);
+    repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(0,210,255,0.04) 40px),
+    repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(0,210,255,0.04) 40px),
+    radial-gradient(ellipse at 20% 0%, rgba(0,180,255,0.06) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 100%, rgba(0,150,255,0.04) 0%, transparent 60%);
+  background-attachment: fixed;
 }
 
-/* ===========================
-   Header
-=========================== */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 80% 50% at 50% 0%,
+    rgba(0, 180, 255, 0.07) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
 .header {
   position: sticky;
   top: 0;
@@ -104,9 +114,6 @@ body {
 
 @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
 
-/* ===========================
-   Main Layout
-=========================== */
 .main {
   max-width: 1400px;
   margin: 0 auto;
@@ -116,9 +123,6 @@ body {
   gap: 20px;
 }
 
-/* ===========================
-   Cards & Sections
-=========================== */
 .section-card {
   background: var(--bg-card);
   border: 1px solid var(--border);
@@ -146,15 +150,9 @@ body {
 .card-title .icon { font-size: 16px; }
 .card-body { padding: 20px; }
 
-/* ===========================
-   Views
-=========================== */
 .view { display: none; }
 .view.active { display: block; }
 
-/* ===========================
-   Repo Input
-=========================== */
 .repo-input-wrapper {
   padding: 28px 32px;
   display: flex;
@@ -239,9 +237,6 @@ body {
   background: var(--accent-green);
 }
 
-/* ===========================
-   Insights Panel
-=========================== */
 .insights-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -306,9 +301,6 @@ body {
   line-height: 1.7;
 }
 
-/* ===========================
-   Complexity Map
-=========================== */
 .complexity-grid {
   display: grid;
   grid-template-columns: 1fr 320px;
@@ -366,9 +358,6 @@ body {
   min-width: 40px;
 }
 
-/* ===========================
-   Dependency Graph
-=========================== */
 .dep-graph-wrapper {
   padding: 20px;
   display: flex;
@@ -405,9 +394,6 @@ body {
 }
 .dep-stat-label { font-size: 11px; color: var(--text-muted); margin-top: 4px; }
 
-/* ===========================
-   Commit Timeline
-=========================== */
 .timeline-wrapper { padding: 20px; }
 .commit-bar-chart { margin-bottom: 24px; }
 .bar-chart-row {
@@ -460,9 +446,6 @@ body {
 .commit-author { font-size: 12px; color: var(--text-muted); }
 .commit-date { font-size: 11px; color: var(--text-dim); white-space: nowrap; }
 
-/* ===========================
-   Empty State
-=========================== */
 .empty-state {
   display: flex;
   flex-direction: column;
@@ -475,9 +458,6 @@ body {
 }
 .empty-icon { font-size: 40px; opacity: 0.5; }
 
-/* ===========================
-   Loading Skeleton
-=========================== */
 .skeleton {
   background: linear-gradient(90deg, var(--bg-elevated) 25%, var(--border) 50%, var(--bg-elevated) 75%);
   background-size: 200% 100%;
@@ -486,9 +466,6 @@ body {
 }
 @keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
 
-/* ===========================
-   Toast Notifications
-=========================== */
 #toast-container {
   position: fixed;
   bottom: 24px;
@@ -514,17 +491,11 @@ body {
 .toast.info    { border-left: 3px solid var(--accent); }
 @keyframes slideIn { from{transform:translateX(20px);opacity:0} to{transform:none;opacity:1} }
 
-/* ===========================
-   Scrollbar
-=========================== */
 ::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { background: var(--bg); }
 ::-webkit-scrollbar-thumb { background: var(--border-bright); border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--text-dim); }
 
-/* ===========================
-   Responsive
-=========================== */
 @media (max-width: 900px) {
   .complexity-grid { grid-template-columns: 1fr; }
   .dep-stats { grid-template-columns: repeat(2, 1fr); }

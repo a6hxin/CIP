@@ -1,7 +1,3 @@
-/**
- * repoInput.js — Repository URL input and clone trigger component
- */
-
 function mountRepoInput(container, onAnalyze) {
   if (!container) return;
 
@@ -63,7 +59,6 @@ function mountRepoInput(container, onAnalyze) {
     }
   });
 
-  // Allow Enter key
   input.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') analyzeBtn.click();
   });

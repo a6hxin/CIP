@@ -1,7 +1,3 @@
-/**
- * commitTimeline.js — Commit history bar chart + commit list
- */
-
 function mountCommitTimeline(container) {
   if (!container) return;
   container.innerHTML = `
@@ -43,12 +39,10 @@ function renderCommitTimeline(data, days = 30) {
     return;
   }
 
-  // Group by period
   const now = Date.now();
   const cutoff = now - days * 86400000;
   const recentCommits = commits.filter(c => new Date(c.date).getTime() > cutoff);
 
-  // Group into weeks
   const weeklyMap = {};
   recentCommits.forEach(c => {
     const d = new Date(c.date);
@@ -72,7 +66,6 @@ function renderCommitTimeline(data, days = 30) {
     </div>
   `).join('');
 
-  // Recent commit list
   commitList.innerHTML = commits.slice(0, 20).map(c => `
     <div class="commit-item">
       <a class="commit-hash" href="${c.url || '#'}" target="_blank" rel="noopener">${c.hash?.slice(0, 7) || '—'}</a>

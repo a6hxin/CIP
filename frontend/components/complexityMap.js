@@ -1,7 +1,3 @@
-/**
- * complexityMap.js — Treemap visualization of cyclomatic complexity per file
- */
-
 function mountComplexityMap(container) {
   if (!container) return;
   container.innerHTML = `
@@ -45,7 +41,6 @@ function renderComplexityMap(data) {
     return;
   }
 
-  // Build treemap
   const treemapData = buildTreemap(files, area.clientWidth || 800, area.clientHeight || 420);
   area.innerHTML = treemapData.map(cell => `
     <div class="treemap-cell"
@@ -61,7 +56,6 @@ function renderComplexityMap(data) {
     </div>
   `).join('');
 
-  // Hotspot list
   const hotspots = [...files].sort((a, b) => b.complexity - a.complexity).slice(0, 6);
   hotspotList.innerHTML = hotspots.map(f => `
     <div class="hotspot-item">
@@ -74,7 +68,6 @@ function renderComplexityMap(data) {
   `).join('');
 }
 
-// ─── Treemap layout (squarified) ──────────────────────────────────────────────
 function buildTreemap(files, W, H) {
   if (!files.length) return [];
   const total = files.reduce((s, f) => s + (f.lines || 1), 0);
@@ -90,7 +83,6 @@ function squarify(items, rect, totalSize, totalArea, cells) {
     cells.push({ ...items[0], x: rect.x, y: rect.y, w: rect.w, h: rect.h });
     return;
   }
-  // Simple slice-and-dice for stability
   const isHoriz = rect.w >= rect.h;
   let remaining = [...items];
   let x = rect.x, y = rect.y;
@@ -111,7 +103,6 @@ function squarify(items, rect, totalSize, totalArea, cells) {
   });
 }
 
-// ─── Color scale ──────────────────────────────────────────────────────────────
 function complexityColor(c) {
   if (c <= 5)  return '#238636'; // green
   if (c <= 10) return '#9e6a03'; // yellow

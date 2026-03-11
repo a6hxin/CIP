@@ -1,13 +1,7 @@
-/**
- * tests/gitAnalyzer.test.js
- * Unit tests for git analysis utilities
- */
-
 const path = require('path');
 const { getCommitLog } = require('../analyzers/git-analyzer/commit_tracker');
 const { detectChanges } = require('../analyzers/git-analyzer/change_detector');
 
-// Mock simple-git to avoid actual git operations in tests
 jest.mock('simple-git', () => {
   return () => ({
     log: jest.fn().mockResolvedValue({

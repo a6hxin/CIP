@@ -1,19 +1,8 @@
-/**
- * analyzers/git-analyzer/commit_tracker.js
- * Extract and structure commit history from a cloned repository
- */
-
 const simpleGit = require('simple-git');
 const path = require('path');
 
 const REPOS_BASE = path.join(__dirname, '../../data/repos');
 
-/**
- * Get structured commit log for a repo
- * @param {string} repoId
- * @param {object} opts
- * @returns {Promise<{commits, total, authorStats, weeklyActivity}>}
- */
 async function getCommitLog(repoId, opts = {}) {
   const { limit = 500, since, until, author } = opts;
   const repoPath = path.join(REPOS_BASE, repoId);
@@ -42,9 +31,6 @@ async function getCommitLog(repoId, opts = {}) {
   return { commits, total: log.total, authorStats, weeklyActivity };
 }
 
-/**
- * Group commits by author and compute per-author counts
- */
 function buildAuthorStats(commits) {
   const map = {};
   commits.forEach(c => {
@@ -56,9 +42,6 @@ function buildAuthorStats(commits) {
   return Object.values(map).sort((a, b) => b.count - a.count);
 }
 
-/**
- * Bucket commits into ISO week keys for bar chart rendering
- */
 function buildWeeklyActivity(commits) {
   const weekly = {};
   commits.forEach(c => {

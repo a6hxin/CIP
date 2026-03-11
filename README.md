@@ -5,11 +5,11 @@ A comprehensive platform for deep codebase analysis — featuring complexity met
 ![alt text](CIP.Preview2.png) ![alt text](CIP.Preview3.png) ![alt text](CIP.Preview1.png)
 ## Features
 
-- **Complexity Analysis** — Cyclomatic complexity, hotspot detection, and code health scoring
-- **Dependency Scanning** — NPM package analysis, vulnerability detection, and dependency graphs
-- **Commit Timeline** — Visual history of changes, contributor activity, and churn analysis
-- **Architecture Visualization** — Auto-generated dependency graphs and module relationship maps
-- **AI Insights** — LLM-powered code quality recommendations and refactoring suggestions
+Complexity Analysis — Cyclomatic complexity, hotspot detection, and code health scoring
+Dependency Scanning— NPM package analysis, vulnerability detection, and dependency graphs
+Commit Timeline — Visual history of changes, contributor activity, and churn analysis
+Architecture Visualization — Auto-generated dependency graphs and module relationship maps
+AI Insights — LLM-powered code quality recommendations and refactoring suggestions
 
 ## Project Structure
 
@@ -41,9 +41,9 @@ codebase-intelligence-platform/
 
 ### Prerequisites
 
-- Node.js >= 18
-- Python >= 3.9
-- Git
+Node.js >= 18
+Python >= 3.9
+Git
 
 ### Installation
 

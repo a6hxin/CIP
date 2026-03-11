@@ -1,11 +1,5 @@
-/**
- * app.js — Main application entry point
- * Handles routing, global state, and component orchestration
- */
-
 const API_BASE = 'http://localhost:4000/api';
 
-// Global application state
 const AppState = {
   currentRepo: null,
   repoId: null,
@@ -13,7 +7,6 @@ const AppState = {
   analysisData: {},
 };
 
-// ─── Router ───────────────────────────────────────────────────────────────────
 function navigate(viewName) {
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
   document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
@@ -26,7 +19,6 @@ function navigate(viewName) {
 
   AppState.currentView = viewName;
 
-  // Lazy-load view data
   if (AppState.repoId) loadViewData(viewName);
 }
 
@@ -36,12 +28,11 @@ async function loadViewData(viewName) {
     case 'complexity':    await loadComplexity(); break;
     case 'dependencies':  await loadDependencies(); break;
     case 'commits':       await loadCommits(); break;
-    case 'architecture':  break; // rendered by backend static image
+    case 'architecture':  break; 
     case 'dashboard':     await loadInsights(); break;
   }
 }
 
-// ─── Status indicator ─────────────────────────────────────────────────────────
 function setStatus(state) {
   const dot = document.getElementById('status-indicator');
   if (dot) {
@@ -49,7 +40,6 @@ function setStatus(state) {
   }
 }
 
-// ─── Toast notifications ──────────────────────────────────────────────────────
 function showToast(message, type = 'info', duration = 3500) {
   let container = document.getElementById('toast-container');
   if (!container) {
@@ -64,7 +54,6 @@ function showToast(message, type = 'info', duration = 3500) {
   setTimeout(() => toast.remove(), duration);
 }
 
-// ─── API helpers ──────────────────────────────────────────────────────────────
 async function apiGet(path) {
   const res = await fetch(`${API_BASE}${path}`);
   if (!res.ok) throw new Error(`API ${path} → ${res.status}`);
@@ -81,7 +70,6 @@ async function apiPost(path, body) {
   return res.json();
 }
 
-// ─── Data loaders ─────────────────────────────────────────────────────────────
 async function loadInsights() {
   if (AppState.analysisData.insights) {
     renderInsightsPanel(AppState.analysisData.insights);
@@ -154,7 +142,6 @@ async function loadCommits() {
   }
 }
 
-// ─── Repo analysis trigger ────────────────────────────────────────────────────
 async function analyzeRepo(repoUrl) {
   setStatus('loading');
   showToast('Cloning repository...', 'info');
@@ -173,25 +160,21 @@ async function analyzeRepo(repoUrl) {
   }
 }
 
-// ─── Bootstrap ────────────────────────────────────────────────────────────────
+
 document.addEventListener('DOMContentLoaded', () => {
-  // Mount components
+
   mountRepoInput(document.getElementById('repo-input-mount'), analyzeRepo);
   mountInsightsPanel(document.getElementById('insights-panel-mount'));
   mountComplexityMap(document.getElementById('complexity-map-mount'));
   mountDependencyGraph(document.getElementById('dependency-graph-mount'));
   mountCommitTimeline(document.getElementById('commit-timeline-mount'));
 
-  // Nav
   document.querySelectorAll('.nav-btn').forEach(btn => {
     btn.addEventListener('click', () => navigate(btn.dataset.view));
   });
-
-  // Initial view
   navigate('dashboard');
 });
 
-// Expose globally for components
 window.AppState = AppState;
 window.showToast = showToast;
 window.analyzeRepo = analyzeRepo;

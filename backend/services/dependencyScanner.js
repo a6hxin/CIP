@@ -1,14 +1,7 @@
-/**
- * services/dependencyScanner.js — NPM dependency parsing and vulnerability checking
- */
-
 const path = require('path');
 const fs = require('fs-extra');
 const { getRepoPath } = require('./gitService');
 
-/**
- * Parse package.json and return dependency data
- */
 async function scan(repoId) {
   const repoPath = getRepoPath(repoId);
   const pkgPath = path.join(repoPath, 'package.json');
@@ -27,7 +20,6 @@ async function scan(repoId) {
 
   const all = [...deps, ...devDeps];
 
-  // Persist report
   const reportPath = path.join(__dirname, '../../data/dependency_reports', `${repoId}.json`);
   await fs.ensureDir(path.dirname(reportPath));
   await fs.writeJson(reportPath, { repoId, scannedAt: new Date().toISOString(), all }, { spaces: 2 });
@@ -39,13 +31,10 @@ async function scan(repoId) {
     total: all.length,
     direct: deps.length,
     devCount: devDeps.length,
-    vulnerabilities: 0, // populated by checkVulnerabilities()
+    vulnerabilities: 0, 
   };
 }
 
-/**
- * Check dependencies against the npm audit API for known CVEs
- */
 async function checkVulnerabilities(repoId) {
   const repoPath = getRepoPath(repoId);
   const pkgPath = path.join(repoPath, 'package.json');
@@ -73,7 +62,6 @@ async function checkVulnerabilities(repoId) {
 
     return { vulnerabilities: vulns, total: vulns.length };
   } catch (e) {
-    // npm audit exits non-zero when vulnerabilities exist — parse output anyway
     if (e.stdout) {
       try {
         const audit = JSON.parse(e.stdout.toString());
