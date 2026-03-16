@@ -34,6 +34,9 @@ app.use('/api/analysis', analysisRoutes);
 app.use('/api/commits', commitsRoutes);
 app.use('/api/dependencies', dependenciesRoutes);
 
+app.get("/health", (req, res) => {
+  res.send("OK");
+});
 app.use(express.static(path.join(__dirname, '../frontend')));
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend/index.html'));
