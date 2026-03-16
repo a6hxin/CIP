@@ -1,7 +1,7 @@
 #  Codebase Intelligence Platform
 
 A comprehensive platform for deep codebase analysis — featuring complexity metrics, dependency scanning, commit timeline visualization, and AI-powered architectural insights.
-
+***DEMO LINK: https://cmt-gamma.vercel.app***
 ![alt text](CIP.Preview2.png) ![alt text](CIP.Preview3.png) ![alt text](CIP.Preview1.png)
 ## Features
 
