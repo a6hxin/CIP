@@ -173,6 +173,9 @@ document.addEventListener('DOMContentLoaded', () => {
     btn.addEventListener('click', () => navigate(btn.dataset.view));
   });
   navigate('dashboard');
+  setInterval(() => {
+  fetch("https://codebase-intelligence-platform-phjm.onrender.com/health");
+}, 300000); // every 5 minutes
 });
 
 window.AppState = AppState;
