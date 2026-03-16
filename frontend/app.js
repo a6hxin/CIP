@@ -1,4 +1,4 @@
-const API_BASE = 'https://codebase-intelligence-platform-phjm.onrender.com';
+const API_BASE = 'https://codebase-intelligence-platform-phjm.onrender.com/api';
 
 const AppState = {
   currentRepo: null,
